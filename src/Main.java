@@ -1,28 +1,33 @@
-import java.util.HashSet;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Set;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("==================");
-        System.out.println("==== bogie Consist Management App====");
+        System.out.println("==== train Consist Management App====");
         System.out.println("==================");
 
-        Set<String> bogie = new HashSet<>();
-        bogie.add("BG101");
-        bogie.add("BG102");
-        bogie.add("BG103");
-        bogie.add("BG104");
-        bogie.add("BG101");
-        bogie.add("BG102");
-        System.out.println("AFTER ADDING BOGIES:");
-//        System.out.println("PASSENGER BOGIES:"+bogie);
+        List<String> train = new LinkedList<>();
+        train.add("Engine");
+        train.add("Sleeper");
+        train.add("AC");
+        train.add("CARGO");
+        train.add("GUARD");
+        System.out.println("AFTER ADDING trainS:");
+        System.out.println("PASSENGER trainS:"+train);
+        train.add(2,"PANTRY CAR");
+        System.out.println("AFTER ADDING PATRY CAR");
+        System.out.println("PASSENGER trainS:"+train);
+        train.removeFirst();
+        train.removeLast();
+        System.out.println("AFTER REMOVING FIRST AND LAST");
+        System.out.println("PASSENGER trainS:"+train);
+
+//
 //        System.out.println("AFTER REMOVING AC CHAIR:");
-//        bogie.remove(bogie.indexOf("AC CHAIR"));
-//        System.out.println("PASSENGER BOGIES:"+bogie);
+//        train.remove(train.indexOf("AC CHAIR"));
+//        System.out.println("PASSENGER trainS:"+train);
 //        System.out.println("CHECKING IF SLEEPER EXISTS:");
-        System.out.println("BOGIES:"+bogie);
-        System.out.println("NOTE:\n DUPLICATES ARE AUTOMATICALLY IGNORED \n UC2 operations completed successfully...");
+//        System.out.println("trainS:"+train);
+        System.out.println(" UC4 operations completed successfully...");
 }
 }
