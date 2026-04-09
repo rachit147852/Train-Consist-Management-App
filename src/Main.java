@@ -3,19 +3,11 @@ import java.util.stream.*;
 
 class Bogie {
     String name;
-    String type;
+    int capacity;
 
-    Bogie(String name, String type) {
+    Bogie(String name, int capacity) {
         this.name = name;
-        this.type = type;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public String toString() {
-        return name;
+        this.capacity = capacity;
     }
 }
 
@@ -27,19 +19,16 @@ public class TrainApp {
 
         // Create list of bogies
         List<Bogie> bogies = new ArrayList<>();
-        bogies.add(new Bogie("Sleeper1", "Sleeper"));
-        bogies.add(new Bogie("Sleeper2", "Sleeper"));
-        bogies.add(new Bogie("AC1", "AC Chair"));
-        bogies.add(new Bogie("FC1", "First Class"));
+        bogies.add(new Bogie("Sleeper", 72));
+        bogies.add(new Bogie("AC Chair", 56));
+        bogies.add(new Bogie("First Class", 48));
 
-        // Group bogies by type
-        Map<String, List<Bogie>> grouped =
-                bogies.stream()
-                        .collect(Collectors.groupingBy(Bogie::getType));
+        // Calculate total capacity using stream
+        int totalCapacity = bogies.stream()
+                .map(b -> b.capacity)
+                .reduce(0, Integer::sum);
 
-        // Display grouped result
-        for (Map.Entry<String, List<Bogie>> entry : grouped.entrySet()) {
-            System.out.println(entry.getKey() + " -> " + entry.getValue());
-        }
+        // Display total
+        System.out.println("Total Seating Capacity: " + totalCapacity);
     }
 }
