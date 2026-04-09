@@ -1,12 +1,13 @@
 import java.util.*;
+import java.util.stream.*;
 
-class GoodsBogie {
-    String type;
-    String cargo;
+class Bogie {
+    String name;
+    int capacity;
 
-    GoodsBogie(String type, String cargo) {
-        this.type = type;
-        this.cargo = cargo;
+    Bogie(String name, int capacity) {
+        this.name = name;
+        this.capacity = capacity;
     }
 }
 
@@ -16,23 +17,38 @@ public class TrainApp {
 
         System.out.println("=== Train Consist Management App ===");
 
-        // Create list of goods bogies
-        List<GoodsBogie> bogies = new ArrayList<>();
-        bogies.add(new GoodsBogie("Cylindrical", "Petroleum"));
-        bogies.add(new GoodsBogie("Box", "Coal"));
-        bogies.add(new GoodsBogie("Open", "Grain"));
-
-        // Safety check using stream
-        boolean isSafe = bogies.stream()
-                .allMatch(b ->
-                        !b.type.equals("Cylindrical") || b.cargo.equals("Petroleum")
-                );
-
-        // Display result
-        if (isSafe) {
-            System.out.println("Train is SAFE for operation.");
-        } else {
-            System.out.println("Train is NOT SAFE.");
+        // Create large dataset
+        List<Bogie> bogies = new ArrayList<>();
+        for (int i = 1; i <= 10000; i++) {
+            bogies.add(new Bogie("Bogie" + i, (i % 100) + 1));
         }
+
+        // Loop-based filtering
+        long startLoop = System.nanoTime();
+
+        List<Bogie> loopResult = new ArrayList<>();
+        for (Bogie b : bogies) {
+            if (b.capacity > 60) {
+                loopResult.add(b);
+            }
+        }
+
+        long endLoop = System.nanoTime();
+        long loopTime = endLoop - startLoop;
+
+        // Stream-based filtering
+        long startStream = System.nanoTime();
+
+        List<Bogie> streamResult = bogies.stream()
+                .filter(b -> b.capacity > 60)
+                .collect(Collectors.toList());
+
+        long endStream = System.nanoTime();
+        long streamTime = endStream - startStream;
+
+        // Display results
+        System.out.println("Loop Time: " + loopTime + " ns");
+        System.out.println("Stream Time: " + streamTime + " ns");
+        System.out.println("Results equal: " + (loopResult.size() == streamResult.size()));
     }
 }
