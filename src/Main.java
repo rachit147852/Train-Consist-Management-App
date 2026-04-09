@@ -1,34 +1,33 @@
+
 import java.util.*;
 
-public class Main {
+public class TrainApp {
+
     public static void main(String[] args) {
-        System.out.println("==================");
-        System.out.println("==== train Consist Management App====");
-        System.out.println("==================");
 
-        Set<String> train = new LinkedHashSet<>();
-        train.add("Engine");
-        train.add("Sleeper");
-        //train.add("AC");
-        train.add("CARGO");
-        train.add("GUARD");
-        train.add("CARGO");
-        System.out.println("AFTER ADDING trainS:");
-        System.out.println("PASSENGER trainS:"+train);
-//        train.add(2,"PANTRY CAR");
-//        System.out.println("AFTER ADDING PATRY CAR");
-//        System.out.println("PASSENGER trainS:"+train);
-//        train.removeFirst();
-//        train.removeLast();
-//        System.out.println("AFTER REMOVING FIRST AND LAST");
-//        System.out.println("PASSENGER trainS:"+train);
+        System.out.println("=== Train Consist Management App ===");
 
-//
-//        System.out.println("AFTER REMOVING AC CHAIR:");
-//        train.remove(train.indexOf("AC CHAIR"));
-//        System.out.println("PASSENGER trainS:"+train);
-//        System.out.println("CHECKING IF SLEEPER EXISTS:");
-//        System.out.println("trainS:"+train);
-        System.out.println(" UC5 operations completed successfully...");
-}
+        // Create HashMap for bogie-capacity mapping
+        HashMap<String, Integer> bogieCapacity = new HashMap<>();
+
+        bogieCapacity.put("Sleeper", 72);
+        bogieCapacity.put("AC Chair", 56);
+        bogieCapacity.put("First Class", 48);
+
+        // Convert map entries to list
+        List<Map.Entry<String, Integer>> list = new ArrayList<>(bogieCapacity.entrySet());
+
+        // Sort using Comparator (descending order of capacity)
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+            @Override
+            public int compare(Map.Entry<String, Integer> a, Map.Entry<String, Integer> b) {
+                return b.getValue() - a.getValue();
+            }
+        });
+
+        // Display sorted bogies
+        for (Map.Entry<String, Integer> entry : list) {
+            System.out.println(entry.getKey() + " -> Capacity: " + entry.getValue());
+        }
+    }
 }
